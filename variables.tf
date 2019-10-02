@@ -1,6 +1,6 @@
 variable "var_project" {
         default = "united-aura-252016"
-    }
+  }
 
 variable "var_credentials" {
   description = "CREDENTIALS_JSON_PATH"
