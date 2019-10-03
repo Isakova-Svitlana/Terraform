@@ -1,9 +1,9 @@
-#resource "google_compute_network" "vpc" {
-#  name          =  "default"
-#  description  = "Default network for the project"
- # auto_create_subnetworks = "true"
- # routing_mode            = "REGIONAL"
-#}
+resource "google_compute_network" "vpc" {
+  name          =  "default"
+  description  = "Default network for the project"
+  auto_create_subnetworks = "true"
+  routing_mode            = "REGIONAL"
+}
 
 resource "google_compute_firewall" "allow-internal" {
   name    = "fw-allow-internal"

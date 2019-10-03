@@ -1,7 +1,6 @@
 provider "google" {
   project     = "${var.var_project}"
   credentials = "${var.var_credentials}"
-
 }
 
 module "pd" {
