@@ -1,7 +1,7 @@
 resource "google_compute_instance" "pd" {
   name         = "${format("%s","${var.var_name}")}"
   machine_type  = "custom-4-8192"
-  zone          =   "${format("%s","${var.var_region}-a")}"
+  zone          =   "${format("%s","${var.var_region}-b")}"
   tags          = ["ssh","http","icmp","http-8081","https"]
 
   boot_disk {
@@ -11,30 +11,11 @@ resource "google_compute_instance" "pd" {
       size = "100"
     }
   }
-    
-#labels {
-#      production_server =  "true"     
- #   }
-
-#metadata {
-#        startup-script = <<SCRIPT
-#        apt-get -y update
-#        apt-get -y install nginx
-#        export HOSTNAME=$(hostname | tr -d '\n')
-#       export PRIVATE_IP=$(curl -sf -H 'Metadata-Flavor:Google' http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip | tr -d '\n')
-#        echo "Welcome to $HOSTNAME - $PRIVATE_IP" > /usr/share/nginx/www/index.html
-#        service nginx start
-#       SCRIPT
-#    } 
 
 metadata = {
    ssh-keys = "isakovasvitlana:${file(var.public_key_path)}"
    
   }
-
-#metadata2 ={
-#  ssh-keys = "buildserver:${file(var.public_key_path2)}"
-#  }
 
 network_interface {
     network            = "${var.var_network}"
@@ -46,4 +27,35 @@ network_interface {
             nat_ip  = "${var.var_nat_ip}"
     }
 }
+}
+resource "null_resource" "pd_prov" {
+  
+  depends_on = "$(google_compute_instance.pd}"
+
+# connection for the work of service providers after installing and configuring the OS
+  connection {
+    host        = "${google_compute_instance.pd.network_interface.0.access_config.0.nat_ip}"
+    type        = "ssh"
+    user        = "isakovasvitlana"
+    agent       = false
+    private_key = "${file(var.private_key_path)}"
+  }
+
+  provisioner "file" {
+    source      = "modules/production/production-tf.sh"
+    destination = "/home/isakovasvitlana/production-tf.sh"   
+ } 
+
+   provisioner "file" {
+    source      = "modules/production/javaexe.sh"
+    destination = "/home/isakovasvitlana/javaexe.sh"   
+ } 
+  
+  provisioner "remote-exec" {
+
+    inline = [
+      "sudo chmod +x /home/isakovasvitlana/production-tf.sh",
+      "sudo /bin/bash /home/isakovasvitlana/production-tf.sh"
+    ]
+  }
 }

@@ -2,7 +2,7 @@ resource "google_compute_instance" "mgdb" {
   name         = "${format("%s","${var.var_name}")}"
   machine_type  = "custom-4-8192"
   zone          =   "${format("%s","${var.var_region}-c")}"
-  tags          = ["ssh","http","icmp","mgdb-27017"]
+  tags          = ["ssh","http","http","icmp","mgdb-27017"]
 
   boot_disk {
     initialize_params {
@@ -11,20 +11,7 @@ resource "google_compute_instance" "mgdb" {
       size = "100"
     }
   }    
-#labels {
-#      production_server =  "true"     
- #   }
 
-#metadata {
-#        startup-script = <<SCRIPT
-#        apt-get -y update
-#        apt-get -y install nginx
-#        export HOSTNAME=$(hostname | tr -d '\n')
-#       export PRIVATE_IP=$(curl -sf -H 'Metadata-Flavor:Google' http://metadata/computeMetadata/v1/instance/network-interfaces/0/ip | tr -d '\n')
-#        echo "Welcome to $HOSTNAME - $PRIVATE_IP" > /usr/share/nginx/www/index.html
-#        service nginx start
-#       SCRIPT
-#    } 
 network_interface {
     network            = "${var.var_network}"
     subnetwork         = "${var.var_subnetwork}"
@@ -36,6 +23,32 @@ network_interface {
     }
 } 
 metadata = {
-    ssh-keys = "isakovasvitlana:${file(var.public_key_path)}"  
+    ssh-keys = "isakovasvitlana:${file(var.public_key_path2)}"  
   } 
+}
+resource "null_resource" "mgdb_prov" {
+  
+  depends_on = "${google_compute_instance.mgdb}"
+
+# connection for the work of service providers after installing and configuring the OS
+  connection {
+    host        = "${google_compute_instance.pd.network_interface.0.access_config.0.nat_ip}"
+    type        = "ssh"
+    user        = "isakovasvitlana"
+    agent       = false
+    private_key = "${file(var.private_key_path2)}"
+  }
+
+  provisioner "file" {
+    source      = "modules/database/database-tf.sh"
+    destination = "/home/isakovasvitlana/database-tf.sh"   
+ }  
+  
+  provisioner "remote-exec" {
+
+    inline = [
+      "sudo chmod +x /home/isakovasvitlana/database-tf.sh",
+      "sudo /bin/bash /home/isakovasvitlana/database-tf.sh"
+    ]
+  }
 }
