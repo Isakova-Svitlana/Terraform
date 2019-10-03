@@ -1,6 +1,6 @@
 resource "google_compute_instance" "pd" {
   name         = "${format("%s","${var.var_name}")}"
-  machine_type  = "custom-4-8192"
+  machine_type  = "custom-1-2048"
   zone          =   "${format("%s","${var.var_region}-b")}"
   tags          = ["ssh","http","icmp","http-8081","https"]
 

@@ -1,6 +1,6 @@
 resource "google_compute_instance" "mgdb" {
   name         = "${format("%s","${var.var_name}")}"
-  machine_type  = "custom-4-8192"
+  machine_type  = "custom-1-2048"
   zone          =   "${format("%s","${var.var_region}-c")}"
   tags          = ["ssh","http","http","icmp","mgdb-27017"]
 
