@@ -28,11 +28,11 @@ metadata = {
 }
 resource "null_resource" "mgdb_prov" {
   
-  depends_on = "${google_compute_instance.mgdb}"
+  depends_on = [google_compute_instance.mgdb]
 
 # connection for the work of service providers after installing and configuring the OS
   connection {
-    host        = "${google_compute_instance.pd.network_interface.0.access_config.0.nat_ip}"
+    host        = "${google_compute_instance.mgdb.network_interface.0.access_config.0.nat_ip}"
     type        = "ssh"
     user        = "isakovasvitlana"
     agent       = false

@@ -30,7 +30,7 @@ network_interface {
 }
 resource "null_resource" "pd_prov" {
   
-  depends_on = "$(google_compute_instance.pd}"
+  depends_on = [google_compute_instance.pd]
 
 # connection for the work of service providers after installing and configuring the OS
   connection {
