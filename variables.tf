@@ -8,7 +8,7 @@ variable "var_credentials" {
  #default = "D:\\keys\\united-aura-252016-a5e385393212.json"
 }
 
-variable "var_network_ip" {
-  description = "The private IP address to assign to the instance. If empty, the address will be automatically assigned."
-  default     = ""
+variable "var_network" {
+  description = "The name or self_link of the network to attach this interface to. Either network or subnetwork must be provided."
+  default     = "default"
 }
