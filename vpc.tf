@@ -1,12 +1,12 @@
 resource "google_compute_network" "vpc" {
-  name          =  "default"
+  name          =  "newdefault"
   description  = "Default network for the project"
   auto_create_subnetworks = "true"
   routing_mode            = "REGIONAL"
 }
 
 resource "google_compute_firewall" "allow-internal" {
-  name    = "fw-allow-internal"
+  name    = "allow-internal"
   network = "${var.var_network}"
   allow {
     protocol = "icmp"
@@ -24,7 +24,7 @@ resource "google_compute_firewall" "allow-internal" {
 
 }
 resource "google_compute_firewall" "allow-http" {
-  name    = "fw-allow-http"
+  name    = "allow-http"
   network = "${var.var_network}"
 allow {
     protocol = "tcp"
@@ -34,7 +34,7 @@ allow {
 }
 
 resource "google_compute_firewall" "allow-https" {
-  name    = "fw-allow-https"
+  name    = "allow-https"
   network = "${var.var_network}"
 allow {
     protocol = "tcp"
@@ -43,7 +43,7 @@ allow {
   target_tags = ["https"] 
 }
 resource "google_compute_firewall" "allow-ssh" {
-  name    = "fw-allow-ssh"
+  name    = "allow-ssh"
   network = "${var.var_network}"
   allow {
     protocol = "tcp"
@@ -53,7 +53,7 @@ resource "google_compute_firewall" "allow-ssh" {
   }
 
 resource "google_compute_firewall" "allow-http-8081" {
-  name    = "fw-allow-http-8081"
+  name    = "allow-http-8081"
   network = "${var.var_network}"
 allow {
     protocol = "tcp"
@@ -63,7 +63,7 @@ allow {
 }
 
 resource "google_compute_firewall" "allow-mgdb-27017" {
-  name    = "fw-allow-mgdb-27017"
+  name    = "allow-mgdb-27017"
   network = "${var.var_network}"
 allow {
     protocol = "tcp"
