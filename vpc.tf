@@ -52,8 +52,8 @@ resource "google_compute_firewall" "allow-ssh" {
   target_tags = ["ssh"]
   }
 
-resource "google_compute_firewall" "allow-http-8081" {
-  name    = "allow-http-8081"
+resource "google_compute_firewall" "http-8081" {
+  name    = "http-8081"
   network = "${var.var_network}"
 allow {
     protocol = "tcp"
@@ -62,8 +62,8 @@ allow {
   target_tags = ["http-8081"] 
 }
 
-resource "google_compute_firewall" "allow-mgdb-27017" {
-  name    = "allow-mgdb-27017"
+resource "google_compute_firewall" "mgdb-27017" {
+  name    = "mgdb-27017"
   network = "${var.var_network}"
 allow {
     protocol = "tcp"
