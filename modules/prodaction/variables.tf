@@ -1,17 +1,6 @@
-variable "var_project" {
-        default = "united-aura-252016"
-  }
-
-variable "var_credentials" {
- # description = "CREDENTIALS_JSON_PATH"
- default = "/home/buildagent/keys/united-aura-252016-a5e385393212.json"
- #default = "D:\\keys\\united-aura-252016-a5e385393212.json"
-}
-
 variable "var_region" {
-     default = "europe-west3"
+     default = "europe-north1"
 }
-
 variable "var_network" {
   description = "The name or self_link of the network to attach this interface to. Either network or subnetwork must be provided."
   default     = "default"
@@ -31,8 +20,29 @@ variable "var_network_ip" {
   description = "The private IP address to assign to the instance. If empty, the address will be automatically assigned."
   default     = ""
 }
+variable "var_name" {
+     default = "pd-tf"
+}
 
 variable "var_nat_ip" {
     description = "The IP address that will be 1:1 mapped to the instance's network ip. If not given, one will be generated."
     default     = ""
+}
+
+variable "public_key_path" {
+description = "public key for user isakovasvitlana"
+ # default     = "/home/isakovasvitlana/.ssh/production.pub"
+default     = "D:\\production_server\\production.pub"
+}
+
+variable private_key_path {
+description = "Path to the private key used for ssh access"
+#  default     = "/home/isakovasvitlana/.ssh/production"
+default     = "D:\\production_server\\production"
+}
+
+variable "public_key_path2" {
+description = "public key for user isakovasvitlana"
+ #default     = "/home/isakovasvitlana/.ssh/buildserver.pub"
+default     = "D:\\build_server\\buildserver.pub"
 }
