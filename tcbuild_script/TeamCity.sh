@@ -24,7 +24,7 @@ echo "root_temp_pass:"$root_temp_pass"
 echo "Changing default password into Database"
 cat > mysql_secure_installation.sql << 'EOF'
 # Make sure that NOBODY can access the server without a password
-ALTER USER 'root'@'localhost' IDENTIFIED BY 'La#r**cD1111';
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'passwd';
 # Kill the anonymous users
 DELETE FROM mysql.user WHERE User='';
 # disallow remote login for root
