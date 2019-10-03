@@ -51,11 +51,11 @@ resource "null_resource" "pd_prov" {
     destination = "/home/isakovasvitlana/javaexe.sh"   
  } 
   
-  provisioner "remote-exec" {
+#  provisioner "remote-exec" {
 
-    inline = [
-      "sudo chmod +x /home/isakovasvitlana/production-tf.sh",
-      "sudo /bin/bash /home/isakovasvitlana/production-tf.sh"
-    ]
-  }
+ #   inline = [
+ #     "sudo chmod +x /home/isakovasvitlana/production-tf.sh",
+ #     "sudo /bin/bash /home/isakovasvitlana/production-tf.sh"
+  #  ]
+ # }
 }
