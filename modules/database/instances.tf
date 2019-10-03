@@ -44,11 +44,11 @@ resource "null_resource" "mgdb_prov" {
     destination = "/home/isakovasvitlana/database-tf.sh"   
  }  
   
-  provisioner "remote-exec" {
+ # provisioner "remote-exec" {
 
-    inline = [
-      "sudo chmod +x /home/isakovasvitlana/database-tf.sh",
-      "sudo /bin/bash /home/isakovasvitlana/database-tf.sh"
-    ]
-  }
+ #   inline = [
+ #     "sudo chmod +x /home/isakovasvitlana/database-tf.sh",
+ #     "sudo /bin/bash /home/isakovasvitlana/database-tf.sh"
+ #   ]
+ # }
 }

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 echo "Creating yum list  for mongodb"
-sudo yum update
-cd /etc/yum.repos.d/
+sudo yum update -y
+sudo cd /etc/yum.repos.d
 sudo touch mongodb-org.repo
 sudo chmod 644 mongodb-org.repo
 sudo chown isakovasvitlana:isakovasvitlana mongodb-org.repo
