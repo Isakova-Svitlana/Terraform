@@ -1,7 +1,9 @@
 #!/bin/bash
       ###create buildserver###
-sudo useradd -m buildserver -p 123456 -s /bin/bash
-sudo mv /home/isakovasvitlana/javaexe.sh /home/buildserver
+sudo apt-get update      
+sudo useradd -m buildserver  -s /bin/bash
+echo "Copy  javaexe.sh"
+sudo mv /home/isakovasvitlana/javaexe.sh /home/buildserver/
 sudo chown buildserver:buildserver /home/buildserver/javaexe.sh
 sudo mkdir /home/buildserver/.ssh
 sudo chmod 700 /home/buildserver/.ssh
@@ -10,7 +12,7 @@ sudo chown -R buildserver:buildserver /home/buildserver/.ssh
 sudo mkdir /home/buildserver/Demo_part1_cards
 sudo chown buildserver:buildserver /home/buildserver/Demo_part1_cards
 sudo apt-get install -y default-jre
-cd /etc/systemd/system
+cd /etc/systemd/system/
 sudo touch carts.service
 sudo chmod 644 carts.service
 echo "Create carts service"
